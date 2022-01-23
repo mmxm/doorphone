@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  api-plateform:
+    build: ./backend
+    command: python3 manage.py runserver 0.0.0.0:8110
+    networks:
+      - api-plateform
+  nginx-plateform:
+    image: nginx
+    container_name: nginx-plateform
+    # restart: "no"
+    depends_on:
+      - api-plateform
+    ports:
+      - 8080:8080
+    networks:
+      - api-plateform
+    volumes:
+      - ./nginx/conf.d/plateform.conf:/etc/nginx/conf.d/plateform.conf
+      - ./log/:/var/log/nginx/
+
+
+networks:
+  api-plateform:

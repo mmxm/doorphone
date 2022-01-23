@@ -1,0 +1,59 @@
+<mat-card>
+  <mat-card-actions align="end" style="padding-right: 10px;">
+    <button 
+      mat-raised-button (click)="addUser()">Ajouter un user</button>
+  </mat-card-actions>
+  <mat-card-content>
+    <mat-progress-bar *ngIf="loading" [mode]="'indeterminate'" color="warn"></mat-progress-bar>
+    <!-- recherche auteurs -->
+    <mat-form-field>
+      <input matInput type="text"
+             placeholder="Search for user"
+             matTooltip="Search for user on username"
+             [formControl]="search">
+    </mat-form-field>
+    <!-- liste des auteurs --->
+    <mat-table #table [dataSource]="users" matSort matSortDisableClear>
+      <!-- les informations de l'auteur -->
+
+      <ng-container matColumnDef="username" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header="username">Username</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.username}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="full_name" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header="last_name">Full name</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.first_name}} {{row.last_name}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="email" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header="email">Email</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.email}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="admin" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header="admin">Admin</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.admin}}</mat-cell>
+      </ng-container>
+
+      <!-- les actions suppression / modification -->
+      <ng-container matColumnDef="action_delete" >
+        <mat-header-cell *matHeaderCellDef [fxFlex]="5"></mat-header-cell>
+        <mat-cell *matCellDef="let row" [fxFlex]="5">
+          <button mat-icon-button (click)="deleteUser(row)"
+                  matTooltip="Supprimer cet auteur"><mat-icon [color]="'warn'">delete</mat-icon></button>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="action_update" >
+        <mat-header-cell *matHeaderCellDef [fxFlex]="5"></mat-header-cell>
+        <mat-cell *matCellDef="let row" [fxFlex]="5">
+          <button mat-icon-button (click)="editUser(row)"
+                  matTooltip="Editer cet auteur"><mat-icon>edit</mat-icon></button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [length]="total" [pageSize]="PAGE_SIZE"
+                   [pageSizeOptions]="[2, 5, 10, 20, 50]"
+                   [showFirstLastButtons]="true"></mat-paginator>
+  </mat-card-content>
+</mat-card>

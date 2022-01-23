@@ -1,0 +1,46 @@
+<mat-toolbar class="mat-elevation-z6" color="primary" fxLayoutAlign="{{layout}}">
+  <span><a [routerLink]="['/']">Interphone</a></span>
+  <mat-icon>account_balance</mat-icon>
+  <button mat-button [matMenuTriggerFor]="libraryMenu">
+    <mat-divider [vertical]="true"></mat-divider>
+    <mat-icon style="position: relative; left: -6px;">{{authentSvc.isAuthenticated() ? 'person_pin' : 'more_vert' }}</mat-icon>
+    <span *ngIf="authentSvc.isAuthenticated()">{{getUser()}}</span>
+  </button>
+  <!--  -->
+  <!-- menu principal -->
+  <mat-menu #libraryMenu="matMenu" xPosition="before">
+    <mat-divider *ngIf="authentSvc.isAuthenticated()"></mat-divider>
+    <button mat-menu-item (click)="go('/login')">
+      <mat-icon *ngIf="authentSvc.isAuthenticated()">power_settings_new</mat-icon>
+      {{authentSvc.isAuthenticated() ? 'Déconnexion' : 'Connexion'}}
+    </button>
+    <mat-divider [vertical]="true"></mat-divider>
+    <!-- <button mat-menu-item [matMenuTriggerFor]="authent">Authentification</button> -->
+    <button *ngIf="canAcces()" mat-menu-item [matMenuTriggerFor]="booksMenu">Livres</button>
+    <button *ngIf="canAcces()" mat-menu-item [matMenuTriggerFor]="authorMenu">Auteurs</button>
+  </mat-menu>
+  <!-- menu authentification -->
+  <mat-menu #authent="matMenu">
+    <button mat-menu-item (click)="go('/login', authentSvc.isAuthenticated())">
+      {{authentSvc.isAuthenticated() ? 'Déconnexion' : 'Connexion'}}
+    </button>
+  </mat-menu>
+  <!-- menu livres -->
+  <mat-menu #booksMenu="matMenu">
+    <button mat-menu-item (click)="go('/booksdt')">
+      Liste
+    </button>
+    <button mat-menu-item (click)="go('/gestion/book/edit')">
+      Ajouter un livre
+    </button>
+  </mat-menu>
+  <!-- menu auteurs -->
+  <mat-menu #authorMenu="matMenu">
+    <button mat-menu-item (click)="go('/authorsdt')">
+      Liste
+    </button>
+    <button mat-menu-item (click)="go('/gestion/author/edit')">
+      Ajouter un auteur
+    </button>
+  </mat-menu>
+</mat-toolbar>

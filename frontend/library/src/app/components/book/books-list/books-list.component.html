@@ -1,0 +1,49 @@
+<mat-card>
+  <mat-card-title>
+    <layout-header [titlePath]="['Bibliothèque de livres']" [iconRacine]="'book'"></layout-header>
+  </mat-card-title>
+  <mat-card-content>
+    <mat-card-actions align="end" style="padding-right: 10px;">
+      <button mat-raised-button
+              matBadge="{{total}}" matBadgePosition="after"
+              matBadgeColor="accent" matBadgeOverlap="true" matBadgeSize="medium"
+              (click)="fetchBooks()">
+        Charger les livres
+      </button>
+    </mat-card-actions>
+    <mat-progress-bar *ngIf="loading"
+                      [mode]="'indeterminate'" color="warn"></mat-progress-bar>
+    <mat-divider></mat-divider>
+    <app-book-search (onBookSelected)="editBook($event)"></app-book-search>
+    <div *ngFor="let book of books">
+      <mat-card fxLayout="row wrap"
+                fxLayoutAlign="space-between center"
+                class="mat-elevation-z1"
+                style="margin-bottom: 10px;">
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+          <p class="font-weight-medium m-0 text-capitalize">
+            {{ book.name }}
+          </p>
+        </div>
+        <div fxHide.lt-sm fxLayout="row wrap" fxLayoutAlign="start center">
+          <p class="m-0 text-muted">
+            <app-author-display [author]="book?.author_obj"></app-author-display>
+          </p>
+        </div>
+        <div>
+          <img *ngIf="book.picture"
+               width="50"
+               [src]="book.picture" alt="couverture">
+        </div>
+        <div fxLayoutAlign="end center">
+          <button mat-icon-button
+                  matTooltip="Emprunter ce livre"
+                  [disabled]="isLoaning(book)"><mat-icon class="2xl:bg-green-100 opacity-100">bookmark_add</mat-icon></button>
+        </div>
+      </mat-card>
+    </div>
+    <mat-paginator [length]="total" [pageSize]="PAGE_SIZE"
+                   [pageSizeOptions]="[2, 5, 10, 20, 50]"
+                   [showFirstLastButtons]="true"></mat-paginator>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,11 @@
+<mat-card>
+  <mat-card-actions style="padding-right: 10px;">
+    <button
+      mat-raised-button (click)="makeCall()">Start</button>
+  </mat-card-actions>
+  <mat-card-content>
+    <audio #remoteAudio autoplay="true"></audio>
+    <video #remoteVideo playsinline="true" controls autoplay></video>
+  </mat-card-content>
+</mat-card>
+

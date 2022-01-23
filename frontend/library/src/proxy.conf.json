@@ -1,0 +1,6 @@
+{
+    "/offer": {
+    "target": "http://localhost:5600",
+    "secure": false
+    }
+    }
