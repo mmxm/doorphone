@@ -7,18 +7,26 @@ services:
       - api-plateform
   nginx-plateform:
     image: nginx
-    container_name: nginx-plateform
+    # build: ./frontend/doorphone
+    # container_name: nginx-plateform
     # restart: "no"
     depends_on:
       - api-plateform
     ports:
       - 8080:8080
+      - 4600:4600
     networks:
       - api-plateform
     volumes:
       - ./nginx/conf.d/plateform.conf:/etc/nginx/conf.d/plateform.conf
       - ./log/:/var/log/nginx/
+      - ./frontend/doorphone/dist/library:/var/www/angular-deploy
 
 
 networks:
   api-plateform:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.22.0.0/24"
+# sudo iptables -I INPUT 1 -s 172.22.0.0/20 -j ACCEPT

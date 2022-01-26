@@ -1,0 +1,112 @@
+<html>
+<head>
+    <meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>WebRTC demo</title>
+
+
+<!--    <style>-->
+<!--    button {-->
+<!--        padding: 8px 16px;-->
+<!--    }-->
+
+<!--    pre {-->
+<!--        overflow-x: hidden;-->
+<!--        overflow-y: auto;-->
+<!--    }-->
+
+<!--    video {-->
+<!--        width: 100%;-->
+<!--    }-->
+
+<!--    .option {-->
+<!--        margin-bottom: 8px;-->
+<!--    }-->
+
+<!--    #media {-->
+<!--        max-width: 1280px;-->
+<!--    }-->
+<!--    </style>-->
+</head>
+<body>
+<div class="container">
+
+  <div class="row">
+      <div class="col">
+        <div class="d-grid gap-2">
+          <button type="button" class="btn btn-primary" id="start" onclick="start()">Start</button>
+          <button type="button" class="btn btn-danger" id="stop" style="display: none" onclick="stop()">Stop</button>
+        </div>
+      </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-12">
+    <div id="media">
+      <h3 class="mt-4">Video</h3>
+      <div class="ratio ratio-16x9">
+        <audio id="audio" autoplay="true"></audio>
+        <video id="video" playsinline="true" autoplay muted controls></video>
+      </div>
+    <!--    <button onclick="document.getElementById('video').play()">Play</button> -->
+    </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+    <div class="form-check">
+      <input class="form-check-input" id="use-audio" checked="checked" type="checkbox"/>
+      <label class="form-check-label" for="use-audio">Activate Microphone</label>
+    </div>
+    </div>
+
+    <div class="col-6">
+      <div class="form-check">
+        <input class="form-check-input" id="use-stun" type="checkbox"/>
+        <label class="form-check-label" for="flexCheckDefault"> Use STUN server</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+    <table class="table table-striped table-hover" id="user-tab">
+      <thead>
+        <tr>
+            <th scope="col" colspan="1">Users online</th>
+        </tr>
+        </thead>
+        <tbody>
+
+          </tbody>
+    </table>
+    </div>
+  </div>
+
+</div>
+<h2>WEBRTC State</h2>
+<p>
+    ICE gathering state: <span id="ice-gathering-state"></span>
+</p>
+<p>
+    ICE connection state: <span id="ice-connection-state"></span>
+</p>
+<p>
+    Signaling state: <span id="signaling-state"></span>
+</p>
+
+<h2>SDP</h2>
+
+<h3>Offer</h3>
+<pre id="offer-sdp"></pre>
+
+<h3>Answer</h3>
+<pre id="answer-sdp"></pre>
+
+<script src="client.js"></script>
+<!-- Optional JavaScript -->
+ <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

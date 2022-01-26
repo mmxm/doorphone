@@ -98,10 +98,11 @@ export class CallService {
       'Content-Type': 'application/json'
         });
         console.log("Making offer")
-    
+        
+        // http://localhost:4200/offer
     await new Promise<void>(function (resolve, reject) {
       that.http
-        .post<RTCSessionDescription>('http://localhost:4200/offer', JSON.stringify({
+        .post<RTCSessionDescription>('http://localhost:4600/offer', JSON.stringify({
           sdp: offer.sdp,
           type: offer.type
         }
